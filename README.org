@@ -8,6 +8,13 @@ into my =~/bin= directory).
 
 ** Installation
 
+*** Automatic
+
+This package can be installed from [[http://melpa.org/][MELPA]] (with =M-x package-install= or
+=M-x list-packages=).
+
+*** Manual
+
 For the manual installation, clone the repo, add the directory to
 =load-path= and add a couple of autoloads:
 
