@@ -1,6 +1,6 @@
 ;;; pathify.el --- Symlink your scripts into a PATH directory
 
-;; Copyright © 2015 Alex Kost
+;; Copyright © 2015, 2016 Alex Kost
 
 ;; Author: Alex Kost <alezost@gmail.com>
 ;; Created: 19 May 2015
@@ -53,12 +53,7 @@
   "Make symlinks in a your favourite PATH directory."
   :group 'convenience)
 
-(defcustom pathify-directory
-  (let ((dir (expand-file-name "~/bin")))
-    (if (file-directory-p dir)
-        dir
-      (message "WARNING: set `pathify-directory' variable.")
-      temporary-file-directory))
+(defcustom pathify-directory "~/bin"
   "Directory where symlinks are created."
   :type 'string
   :group 'pathify)
@@ -93,6 +88,10 @@ Prompt for confirmation if the link already exists."
   "Pathify FILE.
 Make symlink to FILE in `pathify-directory'."
   (interactive "fMake symlink to file: ")
+  (or (file-directory-p pathify-directory)
+      (error "Directory '%s' does not exist.
+Set `pathify-directory' variable"
+             pathify-directory))
   (let ((target (expand-file-name (file-name-nondirectory
                                    (directory-file-name file))
                                   pathify-directory)))
